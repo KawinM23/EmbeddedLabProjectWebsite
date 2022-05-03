@@ -27,6 +27,14 @@
   color: #61dafb;
 }
 
-.Display-box{
+.Display-box {
   display: flex;
+  width: 50%;
+  height: 200px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.Display-text {
+  margin: auto 0 auto 0;
 }
