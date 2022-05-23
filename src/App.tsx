@@ -8,10 +8,17 @@ function App() {
       <header className="App-header">
         <h1>AirCONTROL</h1>
       </header>
-      <div>
-        <DisplayData name="Temperature" value={26}></DisplayData>
-        <DisplayData name="Humidity" value={0.6}></DisplayData>
-      </div>
+      <table className="Display-table">
+        <tr>
+          <td><DisplayData name="Temperature" value={26}></DisplayData></td>
+          <td><DisplayData name="Humidity" value={0.6}></DisplayData></td>
+        </tr>
+        <tr>
+          <td><DisplayData name="Temperature" value={26}></DisplayData></td>
+          <td><DisplayData name="Humidity" value={0.6}></DisplayData></td>
+        </tr>
+      </table>
+
     </div>
   );
 }
