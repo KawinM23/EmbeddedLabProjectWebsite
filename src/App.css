@@ -14,8 +14,7 @@
 
 .Display-table {
   width: 60%;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 1rem auto 2rem auto;
 }
 
 .Display-table-td {
@@ -23,6 +22,12 @@
 
   border-style: solid;
   border-radius: 1rem;
+  box-sizing: border-box;
+}
+
+.Display-line {
+  display: flex;
+  justify-content: center;
 }
 
 .Display-box {
@@ -33,21 +38,35 @@
   margin: auto;
 
   align-items: center;
-  
-
+  min-width: fit-content;
 }
 
 .Display-text {
-  margin: auto 2rem auto 2rem;
+  margin: auto 1rem auto 1rem;
 }
 
 .Display-icon {
   display: block;
   max-width:230px;
-  max-height:95px;
+  max-height:100px;
   width: auto;
   height: auto;
+}
 
-  margin-left: 1rem;
-  margin-right: 1rem;
+.Auto-button{
+  font-size: 30px;
+
+  padding: 15px 32px;
+  border-radius: 10%;
+  border-width: 3px;
+}
+
+.Auto-button-off{
+  background-color: grey;
+  border-color: black;
+}
+
+.Auto-button-on{
+  background-color: #2fb8fca7;
+  border-color: #0071aaa7;
 }
