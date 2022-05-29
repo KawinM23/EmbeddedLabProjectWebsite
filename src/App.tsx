@@ -4,12 +4,33 @@ import DisplayData from './DisplayData';
 import ControlButtons from './ControlButtons';
 import { render } from '@testing-library/react';
 import DisplayUpdate from './DisplayUpdate';
+import { useObject } from 'react-firebase-hooks/database';
+import { getDatabase, ref } from 'firebase/database';
+import { initializeApp } from "firebase/app";
 
+const firebaseConfig = {
+  apiKey: "AIzaSyDNwibrAs3vouz0LYdWKSJ5R9_cL9nQhHQ",
+  authDomain: "embedded-lab-project.firebaseapp.com",
+  projectId: "embedded-lab-project",
+  storageBucket: "embedded-lab-project.appspot.com",
+  messagingSenderId: "414851825213",
+  appId: "1:414851825213:web:11c113b3999935fb7e7454",
+  //databaseURL: "https://embedded-lab-project-default-rtdb.asia-southeast1.firebasedatabase.app"
+};
+
+const firebaseApp = initializeApp(firebaseConfig);
+const database = getDatabase(firebaseApp);
 
 function App() {
   var today = new Date();
   const [autoOn, setAutoOn] = useState(false);
   const [lastestUpdate, setLastestUpdate] = useState(toHMS(today));
+  const [slider, setSlider] = useState(0);
+  const [snapshot, loading, error] = useObject(ref(database, 'l'));
+
+  if(snapshot!=undefined){
+    console.log(snapshot.val())
+  }
 
   function autoOnClick() {
     setAutoOn(!autoOn)
@@ -39,6 +60,8 @@ function App() {
     startInterval();
   }
 
+
+
   return (
     <div className="App">
       <header className="App-header">
@@ -67,10 +90,7 @@ function App() {
         </table>
       </div>
       
-
-      <div>
-        <ControlButtons autoOn={autoOn} autoOnClick={autoOnClick}></ControlButtons>
-      </div>
+      <ControlButtons autoOn={autoOn} autoOnClick={autoOnClick} slider={setSlider}></ControlButtons>
     </div>
   );
 }

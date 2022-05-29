@@ -10,7 +10,10 @@ function ControlButtons(props: any) {
     }
 
     return (
-        <button className={autoClass} onClick={props.autoOnClick}>AUTO</button>
+        <div>
+            <button className={autoClass} onClick={props.autoOnClick}>AUTO</button>
+            <input className="Slider" type="range" disabled={props.autoOn} defaultValue={0} onChange={e => props.slider(e.target.value)}/>
+        </div>
     )
 }
 

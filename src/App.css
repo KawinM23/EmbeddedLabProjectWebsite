@@ -13,10 +13,9 @@
 }
 
 .Display-update {
-  width: 60%;
   height: 3em;
   display: flex;
-  margin: 0 21% 0 21%;
+  margin: 1em 21% 0 21%;
   align-content: center;
   justify-content: space-between;
 }
@@ -36,10 +35,10 @@
 
 .Display-table {
   width: 60%;
-  margin: 0.3em auto 0.7em auto;
+  margin: 0 auto 0.7em auto;
 
-  border-collapse:separate; 
-  border-spacing:1em;
+  border-collapse: separate; 
+  border-spacing: 1em;
 }
 
 .Display-table-td {
@@ -94,4 +93,8 @@
 .Auto-button-on{
   background-color: #2fb8fca7;
   border-color: #0071aaa7;
+}
+
+.Slider {
+  margin: 0 1em 0 1em;
 }
