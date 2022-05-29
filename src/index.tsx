@@ -10,17 +10,6 @@ import { initializeApp } from "firebase/app";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyDNwibrAs3vouz0LYdWKSJ5R9_cL9nQhHQ",
-  authDomain: "embedded-lab-project.firebaseapp.com",
-  projectId: "embedded-lab-project",
-  storageBucket: "embedded-lab-project.appspot.com",
-  messagingSenderId: "414851825213",
-  appId: "1:414851825213:web:11c113b3999935fb7e7454"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
