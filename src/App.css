@@ -12,9 +12,34 @@
   color: white;
 }
 
+.Display-update {
+  width: 60%;
+  height: 3em;
+  display: flex;
+  margin: 0 21% 0 21%;
+  align-content: center;
+  justify-content: space-between;
+}
+
+.Update-time {
+  margin: auto 0 auto 0;
+  width: fit-content;
+  text-align: center;
+}
+
+.Update-button {
+}
+
+.Table-div {
+  align-items: center;
+}
+
 .Display-table {
   width: 60%;
-  margin: 1rem auto 2rem auto;
+  margin: 0.3em auto 0.7em auto;
+
+  border-collapse:separate; 
+  border-spacing:1em;
 }
 
 .Display-table-td {
@@ -33,7 +58,7 @@
 .Display-box {
   display: flex;
 
-  height: 200px;
+  height: 10em;
   width: fit-content;
   margin: auto;
 

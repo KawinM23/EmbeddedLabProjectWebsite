@@ -1,15 +1,42 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
 import DisplayData from './DisplayData';
 import ControlButtons from './ControlButtons';
 import { render } from '@testing-library/react';
+import DisplayUpdate from './DisplayUpdate';
 
 
 function App() {
-  var [autoOn, setAutoOn] = useState(false);
+  var today = new Date();
+  const [autoOn, setAutoOn] = useState(false);
+  const [lastestUpdate, setLastestUpdate] = useState(toHMS(today));
 
   function autoOnClick() {
     setAutoOn(!autoOn)
+  }
+
+  const intervalId:any = useRef();
+
+  useEffect(() => {
+    startInterval();
+    return () => clearInterval(intervalId.current);
+  },[lastestUpdate]);
+
+  function toHMS(date:Date){
+    return (today.getHours()<10? "0"+today.getHours():today.getHours()) + ':' + (today.getMinutes()<10? "0"+today.getMinutes():today.getMinutes()) + ':' + (today.getSeconds()<10? "0"+today.getSeconds():today.getSeconds())
+  }
+
+  function startInterval(){
+    intervalId.current = setInterval(() => {
+      Update()
+    },5000)
+  }
+
+  function Update(){
+    today = new Date();
+    setLastestUpdate(toHMS(today));
+    clearInterval(intervalId.current);
+    startInterval();
   }
 
   return (
@@ -23,18 +50,23 @@ function App() {
         <DisplayData name="Humidity" value={0.6}></DisplayData>
       </div> */}
 
-      <table className="Display-table">
-        <tbody>
-          <tr>
-            <td className='Display-table-td'><DisplayData name="Temperature" value={26}></DisplayData></td>
-            <td className='Display-table-td'><DisplayData name="Humidity" value={0.6}></DisplayData></td>
-          </tr>
-          <tr>
-            <td className='Display-table-td'><DisplayData name="Temperature" value={26}></DisplayData></td>
-            <td className='Display-table-td'><DisplayData name="Humidity" value={0.6}></DisplayData></td>
-          </tr>
-        </tbody>
-      </table>
+      <DisplayUpdate time={lastestUpdate} update={Update}></DisplayUpdate>
+
+      <div className='Table-div'>
+        <table className="Display-table">
+          <tbody>
+            <tr className='Display-table-tr'>
+              <td className='Display-table-td'><DisplayData name="Temperature" value={26}></DisplayData></td>
+              <td className='Display-table-td'><DisplayData name="Humidity" value={0.6}></DisplayData></td>
+            </tr>
+            <tr className='Display-table-tr'>
+              <td className='Display-table-td'><DisplayData name="Temperature" value={26}></DisplayData></td>
+              <td className='Display-table-td'><DisplayData name="Humidity" value={0.6}></DisplayData></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
 
       <div>
         <ControlButtons autoOn={autoOn} autoOnClick={autoOnClick}></ControlButtons>
