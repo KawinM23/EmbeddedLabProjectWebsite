@@ -1,6 +1,11 @@
 import React from "react"
 
-function DisplayUpdate(props: any) {
+type DisplayUpdateProp = {
+    time: string,
+    update: () => void
+}
+
+function DisplayUpdate(props: DisplayUpdateProp) {
 
     return (
         <div className="Display-update">

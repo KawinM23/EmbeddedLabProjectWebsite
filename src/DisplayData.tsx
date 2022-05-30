@@ -1,18 +1,23 @@
 import React from "react"
 
-function DisplayData(props: any) {
+type DisplayDataProps = {
+    name: string,
+    value: number
+}
+
+function DisplayData(props: DisplayDataProps) {
     const url: string = props.name + ".png";
 
     var display_value!: string;
 
-    if(props.name == "Temperature"){
+    if (props.name == "Temperature") {
         display_value = props.value + "°C";
-    }else if(props.name == "Humidity"){
-        display_value = (props.value*100) + "%";
-    }else if(props.name == "Brightness"){
-        display_value = (props.value*100) + "%";
-    }else if(props.name == "PM"){
-        display_value = (props.value*100) + "%";
+    } else if (props.name == "Humidity") {
+        display_value = (props.value * 100) + "%";
+    } else if (props.name == "Brightness") {
+        display_value = (props.value * 100) + "%";
+    } else if (props.name == "PM") {
+        display_value = (props.value * 100) + "%";
     }
 
     return (
@@ -23,7 +28,7 @@ function DisplayData(props: any) {
                 <h1>{display_value}</h1>
             </div>
         </div>
-        
+
         // <table>
         //     <tr>
         //         <td>
