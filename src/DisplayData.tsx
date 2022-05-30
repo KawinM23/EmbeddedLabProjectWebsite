@@ -5,15 +5,20 @@ function DisplayData(props: any) {
 
     var display_value!: string;
 
-    if (props.name == "Temperature") {
-        display_value = props.value + "°C";
-    } else if (props.name == "Humidity") {
-        display_value = (props.value * 100) + "%";
-    } else if (props.name == "Brightness") {
-        display_value = (props.value * 100) + "%";
-    } else if (props.name == "PM") {
-        display_value = (props.value * 100) + "%";
+    if(props.value!=null){
+        if (props.name == "Temperature") {
+            display_value = props.value + "°C";
+        } else if (props.name == "Humidity") {
+            display_value = (props.value);
+        } else if (props.name == "Brightness") {
+            display_value = (props.value);
+        } else if (props.name == "PM") {
+            display_value = (props.value);
+        }
+    } else {
+        display_value = "N/A";
     }
+
 
     return (
         <div className="Display-box">

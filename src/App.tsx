@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
 import './App.css';
 import DisplayData from './DisplayData';
 import ControlButtons from './ControlButtons';
@@ -25,21 +25,28 @@ function useSensorData() {
   const [dht, load_2] = useObjectVal<string>(ref(database, 'd'));
   const [dust, load_3] = useObjectVal<string>(ref(database, 'D'));
 
+  console.log("Get Data from Firebase " + Date().toString());
+
   if (
     ldr === undefined ||
     dht === undefined ||
     dust === undefined) {
-    return undefined;
+    return {
+      ldr: null,
+      temp: null,
+      humidity: null,
+      dust: null
+    };
   }
 
   const [temp, humidity] = dht.split(' ');
 
-  return [{
+  return {
     ldr: +ldr,
     temp: +temp,
     humidity: +humidity,
     dust: +dust
-  }];
+  };
 }
 
 function App() {
@@ -47,13 +54,14 @@ function App() {
   const [autoOn, setAutoOn] = useState(false);
   const [lastestUpdate, setLastestUpdate] = useState(toHMS(today));
   const [slider, setSlider] = useState(0);
-  const sensorData = useSensorData();
+  var sensorData = useSensorData();
+  
 
   function autoOnClick() {
     setAutoOn(!autoOn)
   }
 
-  const intervalId = useRef<NodeJS.Timer>();
+  const intervalId:any = useRef<NodeJS.Timer>();
 
   useEffect(() => {
     startInterval();
@@ -77,8 +85,6 @@ function App() {
     startInterval();
   }
 
-
-
   return (
     <div className="App">
       <header className="App-header">
@@ -96,12 +102,12 @@ function App() {
         <table className="Display-table">
           <tbody>
             <tr className='Display-table-tr'>
-              <td className='Display-table-td'><DisplayData name="Temperature" value={26}></DisplayData></td>
-              <td className='Display-table-td'><DisplayData name="Humidity" value={0.6}></DisplayData></td>
+              <td className='Display-table-td'><DisplayData name="Temperature" value={sensorData.temp}></DisplayData></td>
+              <td className='Display-table-td'><DisplayData name="Humidity" value={sensorData.humidity}></DisplayData></td>
             </tr>
             <tr className='Display-table-tr'>
-              <td className='Display-table-td'><DisplayData name="Temperature" value={26}></DisplayData></td>
-              <td className='Display-table-td'><DisplayData name="Humidity" value={0.6}></DisplayData></td>
+              <td className='Display-table-td'><DisplayData name="Brightness" value={sensorData.ldr}></DisplayData></td>
+              <td className='Display-table-td'><DisplayData name="PM" value={sensorData.dust}></DisplayData></td>
             </tr>
           </tbody>
         </table>

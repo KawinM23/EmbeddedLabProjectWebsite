@@ -67,13 +67,12 @@
 
 .Display-text {
   margin: auto 1rem auto 1rem;
+  width: 10em;
 }
 
 .Display-icon {
   display: block;
-  max-width:230px;
-  max-height:100px;
-  width: auto;
+  width: 100px;
   height: auto;
 }
 
@@ -85,6 +84,16 @@
   border-width: 3px;
 }
 
+.Control-buttons {
+  display: flex;
+  width: fit-content;
+  margin: 0 auto 0 auto;
+}
+
+.Auto-button {
+  cursor: pointer;
+}
+
 .Auto-button-off{
   background-color: grey;
   border-color: black;
@@ -93,6 +102,18 @@
 .Auto-button-on{
   background-color: #2fb8fca7;
   border-color: #0071aaa7;
+}
+
+.h-level {
+
+}
+
+.h-level-on {
+  color: #0047ab;
+}
+
+.h-level-off {
+  color: gray;
 }
 
 .Slider {
