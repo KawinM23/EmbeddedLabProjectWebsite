@@ -2,9 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
 import DisplayData from './DisplayData';
 import ControlButtons from './ControlButtons';
-import { render } from '@testing-library/react';
 import DisplayUpdate from './DisplayUpdate';
-import { useList, useObject, useObjectVal } from 'react-firebase-hooks/database';
+import { useObjectVal } from 'react-firebase-hooks/database';
 import { getDatabase, ref } from 'firebase/database';
 import { initializeApp } from "firebase/app";
 
@@ -54,7 +53,7 @@ function App() {
     setAutoOn(!autoOn)
   }
 
-  const intervalId: any = useRef();
+  const intervalId = useRef<NodeJS.Timer>();
 
   useEffect(() => {
     startInterval();
