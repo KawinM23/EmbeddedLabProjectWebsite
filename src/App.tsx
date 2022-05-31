@@ -41,20 +41,29 @@ function useSensorData(autoOn:Boolean,slider:number,setSlider:Function) {
 
   const [temp, humidity] = dht.split(' ');
 
-  //Secret SOOT
-  const b = ((((1-((+ldr)/4096))*2)-1)*0.3)+1;
-  var fanSpeed = (200/3)*(+temp - 25)*b;
-  fanSpeed = Math.min(Math.round(fanSpeed),999);
-  fanSpeed = Math.max(fanSpeed,0);
+  var brightness = 1-((+ldr)/4096);
 
-  if(autoOn && slider!=fanSpeed){
-    console.log("Set Auto Fan to " + fanSpeed);
-    setSlider(fanSpeed);
-    set(ref(database, "speed"), +fanSpeed);
+  if(autoOn){
+    //Secret SOOT
+    const brightnessEffect = ((((brightness)*2)-1)*0.3)+1;
+    var fanSpeed = (200/3)*(+temp - 25)*brightnessEffect;
+    if(+dust > 100){
+      fanSpeed*=1.1;
+    }
+    fanSpeed = Math.min(Math.round(fanSpeed),999);
+    fanSpeed = Math.max(fanSpeed,0);
+
+    if(slider!=fanSpeed){
+      console.log("Set Auto Fan to " + fanSpeed);
+      setSlider(fanSpeed);
+      set(ref(database, "speed"), +fanSpeed);
+    }
   }
 
+  brightness = Math.round(brightness*100)/100;
+
   return {
-    ldr: +ldr,
+    ldr: brightness,
     temp: +temp,
     humidity: +humidity,
     dust: +dust
@@ -124,7 +133,5 @@ function App() {
     </div>
   );
 }
-
-
 
 export default App;

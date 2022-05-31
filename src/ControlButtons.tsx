@@ -40,5 +40,4 @@ function ControlButtons(props: any) {
     )
 }
 
-
 export default ControlButtons;

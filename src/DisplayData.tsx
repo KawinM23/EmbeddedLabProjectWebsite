@@ -9,7 +9,7 @@ function DisplayData(props: any) {
         if (props.name == "Temperature") {
             display_value = props.value + "°C";
         } else if (props.name == "Humidity") {
-            display_value = (props.value);
+            display_value = (props.value) + "%";
         } else if (props.name == "Brightness") {
             display_value = (props.value);
         } else if (props.name == "PM") {
@@ -19,7 +19,6 @@ function DisplayData(props: any) {
         display_value = "N/A";
     }
 
-
     return (
         <div className="Display-box">
             <img className="Display-icon" src={url} alt={props.name} />
@@ -28,20 +27,6 @@ function DisplayData(props: any) {
                 <h1>{display_value}</h1>
             </div>
         </div>
-
-        // <table>
-        //     <tr>
-        //         <td>
-        //         <img className="Display-icon" src={url} alt={props.name} />
-        //         </td>
-        //         <td>
-        //         <div className="Display-text">
-        //         <h2>{props.name}</h2>
-        //         <h1>{display_value}</h1>
-        //         </div>
-        //         </td>
-        //     </tr>
-        // </table>
     )
 }
 
