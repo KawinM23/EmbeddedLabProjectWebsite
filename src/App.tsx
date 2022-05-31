@@ -4,7 +4,7 @@ import DisplayData from './DisplayData';
 import ControlButtons from './ControlButtons';
 import DisplayUpdate from './DisplayUpdate';
 import { useObjectVal } from 'react-firebase-hooks/database';
-import { getDatabase, ref } from 'firebase/database';
+import { getDatabase, ref, set } from 'firebase/database';
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
@@ -20,7 +20,7 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 export const database = getDatabase(firebaseApp);
 
-function useSensorData() {
+function useSensorData(autoOn:Boolean,slider:number,setSlider:Function) {
   const [ldr, load_1] = useObjectVal<string>(ref(database, 'l'));
   const [dht, load_2] = useObjectVal<string>(ref(database, 'd'));
   const [dust, load_3] = useObjectVal<string>(ref(database, 'D'));
@@ -41,6 +41,14 @@ function useSensorData() {
 
   const [temp, humidity] = dht.split(' ');
 
+  const fanSpeed = +temp;
+
+  if(autoOn && slider!=fanSpeed){
+    console.log("Set Auto Fan to " + fanSpeed);
+    setSlider(fanSpeed);
+    set(ref(database, "speed"), +fanSpeed);
+  }
+
   return {
     ldr: +ldr,
     temp: +temp,
@@ -54,8 +62,7 @@ function App() {
   const [autoOn, setAutoOn] = useState(false);
   const [lastestUpdate, setLastestUpdate] = useState(toHMS(today));
   const [slider, setSlider] = useState(0);
-  var sensorData = useSensorData();
-
+  var sensorData = useSensorData(autoOn,slider,setSlider);
 
   function autoOnClick() {
     setAutoOn(!autoOn)
@@ -91,11 +98,6 @@ function App() {
         <h1>AirConTROL</h1>
       </header>
 
-      {/* <div className="Display-line">
-        <DisplayData name="Temperature" value={26}></DisplayData>
-        <DisplayData name="Humidity" value={0.6}></DisplayData>
-      </div> */}
-
       <DisplayUpdate time={lastestUpdate} update={Update}></DisplayUpdate>
 
       <div className='Table-div'>
@@ -113,7 +115,7 @@ function App() {
         </table>
       </div>
 
-      <ControlButtons autoOn={autoOn} autoOnClick={autoOnClick} slider={setSlider}></ControlButtons>
+      <ControlButtons autoOn={autoOn} autoOnClick={autoOnClick} slider={slider} setSlider={setSlider}></ControlButtons>
       {slider}
     </div>
   );

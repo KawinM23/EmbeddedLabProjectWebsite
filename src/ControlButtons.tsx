@@ -16,7 +16,7 @@ function ControlButtons(props: any) {
 
     function UpdateSlider(s: string) {
         if (!props.autoOn) {
-            props.slider(s);
+            props.setSlider(s);
             set(ref(database, "speed"), +s);
         }
     }
@@ -32,6 +32,7 @@ function ControlButtons(props: any) {
                     min={0} max={999}
                     disabled={props.autoOn}
                     defaultValue={0}
+                    value={props.slider}
                     onChange={e => UpdateSlider(e.target.value)}
                 />
             </div>
