@@ -26,7 +26,7 @@ function useSensorData(autoOn:Boolean,slider:number,setSlider:Function) {
   const [dust, load_3] = useObjectVal<string>(ref(database, 'D'));
 
   console.log("Get Data from Firebase " + Date().toString());
-
+  
   if (
     ldr === undefined ||
     dht === undefined ||
@@ -41,7 +41,11 @@ function useSensorData(autoOn:Boolean,slider:number,setSlider:Function) {
 
   const [temp, humidity] = dht.split(' ');
 
-  const fanSpeed = +temp;
+  //Secret SOOT
+  const b = ((((1-((+ldr)/4096))*2)-1)*0.3)+1;
+  var fanSpeed = (200/3)*(+temp - 25)*b;
+  fanSpeed = Math.min(Math.round(fanSpeed),999);
+  fanSpeed = Math.max(fanSpeed,0);
 
   if(autoOn && slider!=fanSpeed){
     console.log("Set Auto Fan to " + fanSpeed);
@@ -71,9 +75,9 @@ function App() {
   const intervalId: any = useRef<NodeJS.Timer>();
 
   useEffect(() => {
-    startInterval();
-    return () => clearInterval(intervalId.current);
-  }, [lastestUpdate]);
+    today = new Date();
+    setLastestUpdate(toHMS(today));
+  }, [sensorData]);
 
   function toHMS(date: Date) {
     return (today.getHours() < 10 ? "0" + today.getHours() : today.getHours()) + ':' + (today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes()) + ':' + (today.getSeconds() < 10 ? "0" + today.getSeconds() : today.getSeconds())
