@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
 import DisplayData from './DisplayData';
 import ControlButtons from './ControlButtons';
@@ -18,7 +18,7 @@ const firebaseConfig = {
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
-const database = getDatabase(firebaseApp);
+export const database = getDatabase(firebaseApp);
 
 function useSensorData() {
   const [ldr, load_1] = useObjectVal<string>(ref(database, 'l'));
@@ -55,13 +55,13 @@ function App() {
   const [lastestUpdate, setLastestUpdate] = useState(toHMS(today));
   const [slider, setSlider] = useState(0);
   var sensorData = useSensorData();
-  
+
 
   function autoOnClick() {
     setAutoOn(!autoOn)
   }
 
-  const intervalId:any = useRef<NodeJS.Timer>();
+  const intervalId: any = useRef<NodeJS.Timer>();
 
   useEffect(() => {
     startInterval();
@@ -73,9 +73,9 @@ function App() {
   }
 
   function startInterval() {
-    intervalId.current = setInterval(() => {
+    /*intervalId.current = setInterval(() => {
       Update()
-    }, 5000)
+    }, 5000)*/
   }
 
   function Update() {
@@ -114,6 +114,7 @@ function App() {
       </div>
 
       <ControlButtons autoOn={autoOn} autoOnClick={autoOnClick} slider={setSlider}></ControlButtons>
+      {slider}
     </div>
   );
 }
